@@ -1,0 +1,103 @@
+﻿@page
+@model WebAppCZN.Pages.LD.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Фамилия)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Имя)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Отчество)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Дата_рождения)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Серия_паспорта)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Номер_паспорта)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Дата_выдачи_паспорта)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Кем_выдан_паспорт)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Адрес_регистрации)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Телефон)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].Пол)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Личные_данные[0].ID_пользователя)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Личные_данные) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Фамилия)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Имя)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Отчество)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_рождения)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Серия_паспорта)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Номер_паспорта)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_выдачи_паспорта)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Кем_выдан_паспорт)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Адрес_регистрации)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Телефон)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Пол.пол)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_пользователя)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID_личных_данных">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID_личных_данных">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID_личных_данных">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

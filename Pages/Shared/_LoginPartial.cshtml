@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+
+	@if (SignInManager.IsSignedIn(User))
+	{
+		var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+		var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+		string userRole;
+		switch (user?.Роль)
+		{
+			default:
+				userRole = " ";
+				break;
+
+			case 1:
+
+				userRole = "Администратор";
+				break;
+
+			case 2:
+
+				userRole = "Инспектор";
+				break;
+
+			case 3:
+
+				userRole = "Специалист по работе с работодателями";
+				break;
+
+			case 4:
+
+				userRole = "РосТруд";
+				break;
+
+		}
+
+		<div class="container text-center">
+		<a class="nav-link text-dark font-weight-bold fs-4" @* style="margin-right:1.5rem" *@ asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@userRole</a>
+		</div>
+
+		 <div class="d-flex align-items-center">
+			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
+			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+				<button type="submit" class="nav-link btn btn-link text-dark">Выход</button>
+			</form>
+			</div>
+	}
+	else
+	{
+	<div class="text-center">
+			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
+	</div>
+	}
+

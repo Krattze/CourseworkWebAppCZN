@@ -1,0 +1,76 @@
+﻿@page
+@model WebAppCZN.Pages.Rezume_new.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Создать</h1>
+
+<h4>Резюме</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Резюме.Желаемая_должность" class="control-label"></label>
+                <input asp-for="Резюме.Желаемая_должность" class="form-control" />
+                <span asp-validation-for="Резюме.Желаемая_должность" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Профессия" class="control-label"></label>
+                <input asp-for="Резюме.Профессия" class="form-control" />
+                <span asp-validation-for="Резюме.Профессия" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Сфера_деятельности" class="control-label"></label>
+                <input asp-for="Резюме.Сфера_деятельности" class="form-control" />
+                <span asp-validation-for="Резюме.Сфера_деятельности" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Зарплата" class="control-label"></label>
+                <input asp-for="Резюме.Зарплата" class="form-control" />
+                <span asp-validation-for="Резюме.Зарплата" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Дата_готовности_к_работе" class="control-label"></label>
+                <input asp-for="Резюме.Дата_готовности_к_работе" class="form-control" />
+                <span asp-validation-for="Резюме.Дата_готовности_к_работе" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Адрес_места_жительства" class="control-label"></label>
+                <input asp-for="Резюме.Адрес_места_жительства" class="form-control" />
+                <span asp-validation-for="Резюме.Адрес_места_жительства" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_формы_занятости" class="control-label">График работы</label>
+                <select asp-for="Резюме.ID_формы_занятости" class ="form-control" asp-items="ViewBag.ID_формы_занятости"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_тип_занятости" class="control-label">Тип занятости</label>
+                <select asp-for="Резюме.ID_тип_занятости" class ="form-control" asp-items="ViewBag.ID_тип_занятости"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_заявления" class="control-label">Дата подачи заявления</label>
+                <select asp-for="Резюме.ID_заявления" class ="form-control" asp-items="ViewBag.ID_заявления"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_Личных_данных" class="control-label">Фамилия</label>
+                <select asp-for="Резюме.ID_Личных_данных" class="form-control" asp-items="ViewBag.ID_Личных_данных"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Обратно к таблице</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

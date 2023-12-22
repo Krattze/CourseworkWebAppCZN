@@ -1,0 +1,62 @@
+﻿@page
+@model WebAppCZN.Pages.Opyt_new.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Опыт_работы</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Организация)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Организация)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Должность)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Должность)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Дата_начала_работы)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Дата_начала_работы)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Дата_окончания)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Дата_окончания)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Обязанности)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Обязанности)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Резюме)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Резюме.Адрес_места_жительства)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Флаг_удаления)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Флаг_удаления)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Опыт_работы.ID_опыта_работы">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

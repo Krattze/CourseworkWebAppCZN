@@ -1,0 +1,96 @@
+﻿@page
+@model WebAppCZN.Pages.Lich_dela.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<h1>Личные дела</h1>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3)
+    {
+        <h2>Доступ запрещен</h2>
+    }
+    else
+    {
+        if (userRole != 4)
+        {
+            <p>
+                <a asp-page="Create">Добавить</a>
+            </p>
+        }    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Личные_дела[0].Дата_постановки_на_учет)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Личные_дела[0].Дата_регистрации_безработного)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Личные_дела[0].Дата_снятия_с_учета)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Личные_дела[0].Заявление)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Личные_дела[0].Личные_данные)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Личные_дела)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_постановки_на_учет)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_регистрации_безработного)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_снятия_с_учета)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Заявление.ID_заявления)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Личные_данные.ID_личных_данных)
+                        </td>
+                        <td>
+                            @if (userRole != 4)
+                            {
+                            <a asp-page="./Edit" asp-route-id="@item.ID_личного_дела">Изменить</a> 
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    }
+   
+
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

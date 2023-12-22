@@ -1,0 +1,36 @@
+﻿@page
+@model WebAppCZN.Pages.Graphik.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>График_работы</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="График_работы.ID_формы_занятости" />
+            <div class="form-group">
+                <label asp-for="График_работы.Форма_занятости" class="control-label"></label>
+                <input asp-for="График_работы.Форма_занятости" class="form-control" />
+                <span asp-validation-for="График_работы.Форма_занятости" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

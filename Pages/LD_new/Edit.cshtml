@@ -1,0 +1,86 @@
+﻿@page
+@model WebAppCZN.Pages.LD_new.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Изменить</h1>
+
+<h4>Личные_данные</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Личные_данные.ID_личных_данных" />
+            <div class="form-group">
+                <label asp-for="Личные_данные.Фамилия" class="control-label"></label>
+                <input asp-for="Личные_данные.Фамилия" class="form-control" />
+                <span asp-validation-for="Личные_данные.Фамилия" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Имя" class="control-label"></label>
+                <input asp-for="Личные_данные.Имя" class="form-control" />
+                <span asp-validation-for="Личные_данные.Имя" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Отчество" class="control-label"></label>
+                <input asp-for="Личные_данные.Отчество" class="form-control" />
+                <span asp-validation-for="Личные_данные.Отчество" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Дата_рождения" class="control-label"></label>
+                <input asp-for="Личные_данные.Дата_рождения" class="form-control" />
+                <span asp-validation-for="Личные_данные.Дата_рождения" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Серия_паспорта" class="control-label"></label>
+                <input asp-for="Личные_данные.Серия_паспорта" class="form-control" />
+                <span asp-validation-for="Личные_данные.Серия_паспорта" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Номер_паспорта" class="control-label"></label>
+                <input asp-for="Личные_данные.Номер_паспорта" class="form-control" />
+                <span asp-validation-for="Личные_данные.Номер_паспорта" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Дата_выдачи_паспорта" class="control-label"></label>
+                <input asp-for="Личные_данные.Дата_выдачи_паспорта" class="form-control" />
+                <span asp-validation-for="Личные_данные.Дата_выдачи_паспорта" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Кем_выдан_паспорт" class="control-label"></label>
+                <input asp-for="Личные_данные.Кем_выдан_паспорт" class="form-control" />
+                <span asp-validation-for="Личные_данные.Кем_выдан_паспорт" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Адрес_регистрации" class="control-label"></label>
+                <input asp-for="Личные_данные.Адрес_регистрации" class="form-control" />
+                <span asp-validation-for="Личные_данные.Адрес_регистрации" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.Телефон" class="control-label"></label>
+                <input asp-for="Личные_данные.Телефон" class="form-control" />
+                <span asp-validation-for="Личные_данные.Телефон" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_данные.ID_пола" class="control-label">Пол</label>
+                <select asp-for="Личные_данные.ID_пола" class="form-control" asp-items="ViewBag.ID_пола"></select>
+                <span asp-validation-for="Личные_данные.ID_пола" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Обратно к таблице</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

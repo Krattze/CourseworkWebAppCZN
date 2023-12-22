@@ -1,0 +1,81 @@
+﻿@page
+@model WebAppCZN.Pages.Rezume.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Резюме</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Резюме.ID_резюме" />
+            <div class="form-group">
+                <label asp-for="Резюме.Желаемая_должность" class="control-label"></label>
+                <input asp-for="Резюме.Желаемая_должность" class="form-control" />
+                <span asp-validation-for="Резюме.Желаемая_должность" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Профессия" class="control-label"></label>
+                <input asp-for="Резюме.Профессия" class="form-control" />
+                <span asp-validation-for="Резюме.Профессия" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Сфера_деятельности" class="control-label"></label>
+                <input asp-for="Резюме.Сфера_деятельности" class="form-control" />
+                <span asp-validation-for="Резюме.Сфера_деятельности" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Зарплата" class="control-label"></label>
+                <input asp-for="Резюме.Зарплата" class="form-control" />
+                <span asp-validation-for="Резюме.Зарплата" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Дата_готовности_к_работе" class="control-label"></label>
+                <input asp-for="Резюме.Дата_готовности_к_работе" class="form-control" />
+                <span asp-validation-for="Резюме.Дата_готовности_к_работе" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Адрес_места_жительства" class="control-label"></label>
+                <input asp-for="Резюме.Адрес_места_жительства" class="form-control" />
+                <span asp-validation-for="Резюме.Адрес_места_жительства" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_формы_занятости" class="control-label"></label>
+                <select asp-for="Резюме.ID_формы_занятости" class="form-control" asp-items="ViewBag.ID_формы_занятости"></select>
+                <span asp-validation-for="Резюме.ID_формы_занятости" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_тип_занятости" class="control-label"></label>
+                <select asp-for="Резюме.ID_тип_занятости" class="form-control" asp-items="ViewBag.ID_тип_занятости"></select>
+                <span asp-validation-for="Резюме.ID_тип_занятости" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.ID_заявления" class="control-label"></label>
+                <select asp-for="Резюме.ID_заявления" class="form-control" asp-items="ViewBag.ID_заявления"></select>
+                <span asp-validation-for="Резюме.ID_заявления" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Резюме.Флаг_удаления" class="control-label"></label>
+                <input asp-for="Резюме.Флаг_удаления" class="form-control" />
+                <span asp-validation-for="Резюме.Флаг_удаления" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

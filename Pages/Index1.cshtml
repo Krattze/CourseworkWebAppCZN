@@ -1,0 +1,183 @@
+﻿@page
+@using Microsoft.EntityFrameworkCore
+@using System.Linq
+@using System.Security.Claims
+@using WebAppCZN.Data.BD
+@model WebAppCZN.Pages.LD.EditModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        <div class=" col-md-12">
+            <h1>Личные данные</h1>
+        </div>
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 pt-2">
+                        <h2 style="margin-left: 1rem;">Мои данные</h2>
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Личные_данные.ID_личных_данных" />
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="ml-2" style="margin-left: 1rem;">
+                                            <label asp-for="Личные_данные.Фамилия" class="control-label"></label>
+                                            <input asp-for="Личные_данные.Фамилия" class="form-control mt-1" />
+                                            <span asp-validation-for="Личные_данные.Фамилия" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="ml-2" style="margin-left: 1rem;">
+                                            <label asp-for="Личные_данные.Имя" class="control-label mt-2"></label>
+                                            <input asp-for="Личные_данные.Имя" class="form-control mt-1" />
+                                            <span asp-validation-for="Личные_данные.Имя" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="ml-2" style="margin-left: 1rem;">
+                                            <label asp-for="Личные_данные.Отчество" class="control-label mt-2"></label>
+                                            <input asp-for="Личные_данные.Отчество" class="form-control mt-1" />
+                                            <span asp-validation-for="Личные_данные.Отчество" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="ml-2" style="margin-left: 1rem;">
+                                            <label asp-for="Личные_данные.Дата_рождения" class="control-label mt-2"></label>
+                                            <input asp-for="Личные_данные.Дата_рождения" class="form-control mt-1" />
+                                            <span asp-validation-for="Личные_данные.Дата_рождения" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="ml-2" style="margin-left: 1rem;">
+                                            <label asp-for="Личные_данные.ID_пола" class="control-label mt-2">Пол</label>
+                                            <select asp-for="Личные_данные.ID_пола" class="form-control custom-select">
+                                                @foreach (var пол in _context.Set<Пол>())
+                                                {
+                                                    <option value="@пол.ID_пола" data-name="@пол.пол">@пол.пол</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="Личные_данные.ID_пола" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                   
+                                    <div class="form-group">
+                                        <div class="ml-2" style="margin-left: 1rem;">
+                                            <label asp-for="Личные_данные.Телефон" class="control-label mt-2"></label>
+                                            <input asp-for="Личные_данные.Телефон" class="form-control mt-1" />
+                                            <span asp-validation-for="Личные_данные.Телефон" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-6" style="margin-left: 2rem;">
+
+                                    <div class="form-group ">
+                                        <label asp-for="Личные_данные.Серия_паспорта" class="control-label"></label>
+                                        <div class="col-md-7">
+                                            <input asp-for="Личные_данные.Серия_паспорта" class="form-control mt-1 col-md-3" type="text" inputmode="numeric" />
+                                        </div>
+                                        
+                                        <span asp-validation-for="Личные_данные.Серия_паспорта" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Личные_данные.Номер_паспорта" class="control-label mt-2"></label>
+                                        <div class="col-md-7">
+                                        <input asp-for="Личные_данные.Номер_паспорта" class="form-control mt-1 col-md-5" type="text" inputmode="numeric" />
+                                        </div>
+                                        <span asp-validation-for="Личные_данные.Номер_паспорта" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Личные_данные.Дата_выдачи_паспорта" class="control-label mt-2"></label>
+                                        <div class="col-md-7">
+                                        <input asp-for="Личные_данные.Дата_выдачи_паспорта" class="form-control mt-1 col-md-5" />
+                                        </div>
+                                        <span asp-validation-for="Личные_данные.Дата_выдачи_паспорта" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Личные_данные.Кем_выдан_паспорт" class="control-label mt-2"></label>
+                                                <div class="col-md-12">
+                                        <textarea asp-for="Личные_данные.Кем_выдан_паспорт" class="form-control mt-1 "></textarea>
+                                        </div>
+                                        <span asp-validation-for="Личные_данные.Кем_выдан_паспорт" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                            <label asp-for="Личные_данные.Адрес_регистрации" class="control-label mt-2"></label>
+                                                    <div class="col-md-12">
+                                        <textarea asp-for="Личные_данные.Адрес_регистрации" class="form-control mt-1"> </textarea>
+                                        </div>
+                                            <span asp-validation-for="Личные_данные.Адрес_регистрации" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card mb-3 text-center mb-3 pt-2" > 
+                        <h3>Мои резюме</h3>
+                   @*      @{
+                            var ld = await _context.Резюме.Where(m => m.ID_пользователя == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+                            if(ld.Count == 0)
+                            {
+                                <p style="margin-top: 1rem;">У вас нет ни одного резюме</p>
+                                <div class="mb-4 mt-3">
+                                    <a asp-page="./Rezume/Create" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class="btn btn-primary">Создать резюме</a>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach(var r in ld)
+                                {
+
+                                    <a asp-page="./Rezume/Edit" asp-route-id="@r.ID_резюме" style="margin-top: 1rem;">@r.Желаемая_должность</a>
+                                }
+                                <div class="mb-4 mt-3">
+                                    <a asp-page="./Rezume/Create" asp-route-id="" class="btn btn-primary">Добавить резюме</a>
+                                </div>
+                            }
+                        } *@
+                    </div>
+                </div>
+                <div class="col-md-3 ">
+                    <div class="card mb-3 text-center pt-2">
+                        <h3>Заявления</h3>
+                       @*  @{
+                            var z = await _context.Заявления.Where(m => m.ID_пользователя == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+                            if (z.Count == 0)
+                            {
+                                <p style="margin-top: 1rem;">Вы не подавали заявлений</p>
+                                <div class="mb-4 mt-3">
+                                    <a asp-page="./Zayavleniya/Create" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class="btn btn-primary">Подать заявление</a>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach (var r in z)
+                                {
+                                    <a asp-page="./Zayavleniya/Details" asp-route-id="@r.ID_заявления" style="margin-top: 1rem;">Заявление</a>
+                                }
+                            }
+                        } *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;    
+}

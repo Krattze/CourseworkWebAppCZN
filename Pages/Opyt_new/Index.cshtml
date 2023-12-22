@@ -1,0 +1,93 @@
+﻿@page
+@model WebAppCZN.Pages.Opyt_new.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Опыт работы</h1>
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3 || userRole == 4)
+    {
+        <h2>Доступ запрещен</h2>
+    }
+    else
+    {
+        <p>
+            <a asp-page="Create">Добавить</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Опыт_работы[0].Организация)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Опыт_работы[0].Должность)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Опыт_работы[0].Дата_начала_работы)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Опыт_работы[0].Дата_окончания)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Опыт_работы[0].Обязанности)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Опыт_работы[0].Резюме)
+                    </th>  
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Опыт_работы)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Организация)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Должность)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_начала_работы)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_окончания)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Обязанности)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Резюме.Желаемая_должность)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.ID_опыта_работы">Изменить</a> 
+@*                             <a asp-page="./Details" asp-route-id="@item.ID_опыта_работы">Details</a>  *@
+						</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

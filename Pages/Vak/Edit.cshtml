@@ -1,0 +1,76 @@
+﻿@page
+@model WebAppCZN.Pages.Vak.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Изменить</h1>
+
+<h4>Вакансии</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Вакансии.ID_вакансии" />
+            <div class="form-group">
+                <label asp-for="Вакансии.Профессия" class="control-label"></label>
+                <input asp-for="Вакансии.Профессия" class="form-control" />
+                <span asp-validation-for="Вакансии.Профессия" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.Зарплата" class="control-label"></label>
+                <input asp-for="Вакансии.Зарплата" class="form-control" />
+                <span asp-validation-for="Вакансии.Зарплата" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.Адрес_трудоустройства" class="control-label"></label>
+                <input asp-for="Вакансии.Адрес_трудоустройства" class="form-control" />
+                <span asp-validation-for="Вакансии.Адрес_трудоустройства" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.Должностные_обязанности" class="control-label"></label>
+                <input asp-for="Вакансии.Должностные_обязанности" class="form-control" />
+                <span asp-validation-for="Вакансии.Должностные_обязанности" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.ID_образования" class="control-label">Образование</label>
+                <select asp-for="Вакансии.ID_образования" class="form-control" asp-items="ViewBag.ID_образования"></select>
+                <span asp-validation-for="Вакансии.ID_образования" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.Стаж" class="control-label"></label>
+                <input asp-for="Вакансии.Стаж" class="form-control" />
+                <span asp-validation-for="Вакансии.Стаж" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.ID_формы_занятости" class="control-label">График работы</label>
+                <select asp-for="Вакансии.ID_формы_занятости" class="form-control" asp-items="ViewBag.ID_формы_занятости"></select>
+                <span asp-validation-for="Вакансии.ID_формы_занятости" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.ID_тип_занятости" class="control-label">Тип занятости</label>
+                <select asp-for="Вакансии.ID_тип_занятости" class="form-control" asp-items="ViewBag.ID_тип_занятости"></select>
+                <span asp-validation-for="Вакансии.ID_тип_занятости" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Вакансии.ID_организации" class="control-label">Организация</label>
+                <select asp-for="Вакансии.ID_организации" class="form-control" asp-items="ViewBag.ID_организации"></select>
+                <span asp-validation-for="Вакансии.ID_организации" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Обратно к таблице</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,53 @@
+﻿@page
+@model WebAppCZN.Pages.Lich_dela.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Личные_дела</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Личные_дела.Дата_постановки_на_учет" class="control-label"></label>
+                <input asp-for="Личные_дела.Дата_постановки_на_учет" class="form-control" />
+                <span asp-validation-for="Личные_дела.Дата_постановки_на_учет" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_дела.Дата_регистрации_безработного" class="control-label"></label>
+                <input asp-for="Личные_дела.Дата_регистрации_безработного" class="form-control" />
+                <span asp-validation-for="Личные_дела.Дата_регистрации_безработного" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_дела.Дата_снятия_с_учета" class="control-label"></label>
+                <input asp-for="Личные_дела.Дата_снятия_с_учета" class="form-control" />
+                <span asp-validation-for="Личные_дела.Дата_снятия_с_учета" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_дела.ID_заявления" class="control-label"></label>
+                <select asp-for="Личные_дела.ID_заявления" class ="form-control" asp-items="ViewBag.ID_заявления"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Личные_дела.ID_личных_данных" class="control-label"></label>
+                <select asp-for="Личные_дела.ID_личных_данных" class ="form-control" asp-items="ViewBag.ID_личных_данных"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

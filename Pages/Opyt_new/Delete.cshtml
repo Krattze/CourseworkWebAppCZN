@@ -1,0 +1,65 @@
+﻿@page
+@model WebAppCZN.Pages.Opyt_new.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Опыт_работы</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Организация)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Организация)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Должность)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Должность)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Дата_начала_работы)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Дата_начала_работы)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Дата_окончания)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Дата_окончания)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Обязанности)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Обязанности)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Резюме)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Резюме.Адрес_места_жительства)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Опыт_работы.Флаг_удаления)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Опыт_работы.Флаг_удаления)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Опыт_работы.ID_опыта_работы" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

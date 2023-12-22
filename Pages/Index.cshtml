@@ -1,0 +1,69 @@
+﻿@page
+@using WebAppCZN.Data.BD
+@model WebAppCZN.Pages.IndexModel
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+@{
+	ViewData["Title"] = "АИС-ЦЗН";
+	Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+	<div class=" col-md-12 text-center">
+		<h1>Добро пожаловать в АИС ЦЗН</h1>
+	</div>
+	<div class=" col-md-12 text-center">
+		<h2>Список таблиц:</h2>
+	</div>
+</div>
+
+<div class="row mt-3 text-center">
+    <div class="col-md-6 offset-md-3">
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a asp-page="/Vak/Index" class="btn btn-primary">Вакансии</a></li>
+                    <li class="mb-2"><a asp-page="/LD_new/Index" class="btn btn-primary">Личные данные</a></li>
+                    <li class="mb-2"><a asp-page="/Rezume_new/Index" class="btn btn-primary">Резюме</a></li>
+                    <li class="mb-2"><a asp-page="/Opyt_new/Index" class="btn btn-primary">Опыт работы</a></li>
+                    <li class="mb-2"><a asp-page="/Sv_obr_new/Index" class="btn btn-primary">Сведения об образовании</a></li>
+                    <li class="mb-2"><a asp-page="/Org/Index" class="btn btn-primary">Организации</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a asp-page="/Graphik/Index" class="btn btn-primary">График работы</a></li>
+                    <li class="mb-2"><a asp-page="/Zaya/Index" class="btn btn-primary">Заявления</a></li>
+                    <li class="mb-2"><a asp-page="/Lich_dela/Index" class="btn btn-primary">Личные дела</a></li>
+                    <li class="mb-2"><a asp-page="/Obr/Index" class="btn btn-primary">Образование</a></li>
+                    <li class="mb-2"><a asp-page="/Osn_uvol/Index" class="btn btn-primary">Основания увольнения</a></li>
+                    <li class="mb-2"><a asp-page="/Pol/Index" class="btn btn-primary">Пол</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@* <div class="form-group">
+			<label asp-for="Запись.ФИО"></label>
+			<input asp-for="Запись.ФИО" class="form-control" />
+			<span asp-validation-for="Запись.ФИО" class="text-danger"></span>
+		</div>  *@
+
+@* <div class="form-group">
+			<label asp-for="Посещения.Дата_записи"></label>
+			<input id="Посещения_Дата_записи" asp-for="Посещения.Дата_записи" type="date" class="form-control" />
+			<span asp-validation-for="Посещения.Дата_записи" class="text-danger"></span>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Посещения.Время_записи"></label>
+			<select asp-for="Посещения.Время_записи" asp-items="@(new SelectList(Model.GetTimeSlots(), "Value", "Text"))" class="form-control"></select>
+			<span asp-validation-for="Посещения.Время_записи" class="text-danger"></span>
+		</div> *@
+
+@* <button type="submit" class="btn btn-primary mt-3">Записаться на прием</button> *@

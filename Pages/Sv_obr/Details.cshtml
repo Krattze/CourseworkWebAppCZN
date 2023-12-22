@@ -1,0 +1,68 @@
+﻿@page
+@model WebAppCZN.Pages.Sv_obr.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Сведения_об_образовании</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.Учебное_заведение)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.Учебное_заведение)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.Год_окончания)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.Год_окончания)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.Специальность)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.Специальность)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.Серия_диплома)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.Серия_диплома)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.Номер_диплома)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.Номер_диплома)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.Дата_выдачи_диплома)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.Дата_выдачи_диплома)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.ID_резюме)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.ID_резюме)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Сведения_об_образовании.ID_образования)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Сведения_об_образовании.ID_образования)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Сведения_об_образовании.ID_сведения_об_образовании">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

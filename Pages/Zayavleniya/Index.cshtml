@@ -1,0 +1,58 @@
+﻿@page
+@model WebAppCZN.Pages.Zayavleniya.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Заявление[0].Дата_подачи)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Заявление[0].Признание_безработным)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Заявление[0].Результат_подачи)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Заявление[0].Комментарий)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Заявление) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_подачи)
+            </td>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.ID_пользователя)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.Признание_безработным)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Результат_подачи)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Комментарий)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID_заявления">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID_заявления">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID_заявления">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

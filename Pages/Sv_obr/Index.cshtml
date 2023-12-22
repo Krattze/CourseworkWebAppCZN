@@ -1,0 +1,107 @@
+﻿@page
+@model WebAppCZN.Pages.Sv_obr.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Сведения об образовании</h1>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3 || userRole == 4)
+    {
+        <h2>Доступ запрещен</h2>
+    }
+    else
+    {
+<p>
+            <a asp-page="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].Учебное_заведение)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].Год_окончания)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].Специальность)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].Серия_диплома)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].Номер_диплома)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].Дата_выдачи_диплома)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].ID_резюме)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Сведения_об_образовании[0].ID_образования)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Сведения_об_образовании) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Учебное_заведение)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Год_окончания)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Специальность)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Серия_диплома)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Номер_диплома)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_выдачи_диплома)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_резюме)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.ID_образования)
+            </td>
+            <td>
+                            <a asp-page="./Edit" asp-route-id="@item.ID_сведения_об_образовании">Изменить</a> 
+                <a asp-page="./Details" asp-route-id="@item.ID_сведения_об_образовании">Details</a> 
+           
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    }
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

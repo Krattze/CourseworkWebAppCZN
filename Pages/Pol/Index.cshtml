@@ -1,0 +1,67 @@
+﻿@page
+@model WebAppCZN.Pages.Pol.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Пол</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3 || userRole == 4)
+    {
+        <h2>Доступ запрещен</h2>
+    }
+    else
+    {
+        if (userRole == 1)
+        {
+            <p>
+                <a asp-page="Create">Добавить</a>
+            </p>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Пол[0].пол)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Пол)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.пол)
+                        </td>
+                        <td>
+                            @if (userRole == 1)
+                            {
+                            <a asp-page="./Edit" asp-route-id="@item.ID_пола">Изменить</a> 
+                            }                          
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

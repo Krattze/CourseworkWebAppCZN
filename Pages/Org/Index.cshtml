@@ -1,0 +1,72 @@
+﻿@page
+@model WebAppCZN.Pages.Org.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Оганизации</h1>
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3 || userRole == 1)
+    {
+        <p>
+            <a asp-page="Create">Добавить</a>
+        </p>
+    }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Организации[0].Наименование)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Организации[0].Адрес)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Организации[0].Телефон)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Организации) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Наименование)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Адрес)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Телефон)
+            </td>
+            <td>
+                        @if (userRole == 3 || userRole == 1)
+                        {
+                <a asp-page="./Edit" asp-route-id="@item.ID_организации">Изменить</a> 
+                        }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

@@ -1,0 +1,236 @@
+﻿@page
+@using Microsoft.EntityFrameworkCore
+@using System.Linq
+@using System.Security.Claims
+@using WebAppCZN.Data.BD
+@model WebAppCZN.Pages.Rezume.CreateModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Резюме</h2>
+<div class="row">
+	<form method="post" class="row">
+		<div class="col-md-2">
+			<div class="card " style="padding-left: 5px;">
+				<h4 style="">ФИО</h4>
+				@{
+					var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+					var user = await UserManager.FindByIdAsync(userID);
+					string userEmail = await UserManager.GetEmailAsync(user);
+					var ld = await _context.Личные_данные.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+					string username = $"{ld.Фамилия} {ld.Имя} {ld.Отчество} ";
+					var pol = await _context.Пол.FirstOrDefaultAsync(m => m.ID_пола == ld.ID_пола);
+					<h6>@username</h6>
+					<span>Дата рождения:</span>
+					<span>@ld.Дата_рождения?.ToString("dd.MM.yyyy") </span>
+					<p>Пол: @pol.пол</p>
+				}
+			</div>
+			<div class="card mt-3" style="padding-left: 5px;">
+				<h4 style="">Контакты</h4>
+
+				<div class="col-md-11 mb-2">
+					<label class="control-label">Телефон</label>
+					<input class="form-control" value="@ld.Телефон" readonly />
+
+					<label class="control-label">E-mail</label>
+					<input class="form-control" value="@userEmail" readonly />
+				</div>
+			</div>
+			<div class="container text-center mt-3 mb-3">
+				<div class="form-group">
+					<input type="submit" value="Создать" class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 card" style="margin-left: 1rem;">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Резюме.Желаемая_должность" class="control-label"></label>
+				<input asp-for="Резюме.Желаемая_должность" class="form-control" />
+				<span asp-validation-for="Резюме.Желаемая_должность" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.Профессия" class="control-label"></label>
+				<input asp-for="Резюме.Профессия" class="form-control" />
+				<span asp-validation-for="Резюме.Профессия" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.Сфера_деятельности" class="control-label"></label>
+				<input asp-for="Резюме.Сфера_деятельности" class="form-control" />
+				<span asp-validation-for="Резюме.Сфера_деятельности" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.Зарплата" class="control-label">Зарплата от</label>
+				<input asp-for="Резюме.Зарплата" class="form-control" />
+				<span asp-validation-for="Резюме.Зарплата" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.Дата_готовности_к_работе" class="control-label"></label>
+				<input asp-for="Резюме.Дата_готовности_к_работе" class="form-control" />
+				<span asp-validation-for="Резюме.Дата_готовности_к_работе" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.Адрес_места_жительства" class="control-label">Регион, населенный пункт</label>
+				<input asp-for="Резюме.Адрес_места_жительства" class="form-control" />
+				<span asp-validation-for="Резюме.Адрес_места_жительства" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.ID_формы_занятости" class="control-label"></label>
+				<select asp-for="Резюме.ID_формы_занятости" class="form-control custom-select">
+					@foreach (var g in _context.Set<График_работы>())
+					{
+						<option value="@g.ID_формы_занятости" data-name="@g.Форма_занятости">@g.Форма_занятости</option>
+					}
+				</select>
+				<span asp-validation-for="Резюме.ID_формы_занятости" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Резюме.ID_тип_занятости" class="control-label"></label>
+				<select asp-for="Резюме.ID_тип_занятости" class="form-control custom-select">
+					@foreach (var g in _context.Set<Тип_занятости>())
+					{
+						<option value="@g.ID_тип_занятости" data-name="@g.Тип_Занятости">@g.Тип_Занятости</option>
+					}
+				</select>
+				<span asp-validation-for="Резюме.ID_тип_занятости" class="text-danger"></span>
+			</div>			
+		</div>
+		<div class="col-md-3 card">
+			<div class="education-container">
+				<div class="education-card">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.ID_образования" class="control-label"></label>
+						<select asp-for="Сведения_об_образовании.ID_образования" class="form-control custom-select">
+							@foreach (var obr in _context.Set<Образование>())
+							{
+								<option value="@obr.Id_образования" data-name="@obr.Образования">@obr.Образования</option>
+							}
+						</select>
+						<span asp-validation-for="Сведения_об_образовании.ID_образования" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.Учебное_заведение" class="control-label"></label>
+						<input asp-for="Сведения_об_образовании.Учебное_заведение" class="form-control" />
+						<span asp-validation-for="Сведения_об_образовании.Учебное_заведение" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.Год_окончания" class="control-label"></label>
+						<input asp-for="Сведения_об_образовании.Год_окончания" class="form-control" />
+						<span asp-validation-for="Сведения_об_образовании.Год_окончания" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.Специальность" class="control-label"></label>
+						<input asp-for="Сведения_об_образовании.Специальность" class="form-control" />
+						<span asp-validation-for="Сведения_об_образовании.Специальность" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.Серия_диплома" class="control-label"></label>
+						<input asp-for="Сведения_об_образовании.Серия_диплома" class="form-control" />
+						<span asp-validation-for="Сведения_об_образовании.Серия_диплома" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.Номер_диплома" class="control-label"></label>
+						<input asp-for="Сведения_об_образовании.Номер_диплома" class="form-control" />
+						<span asp-validation-for="Сведения_об_образовании.Номер_диплома" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Сведения_об_образовании.Дата_выдачи_диплома" class="control-label"></label>
+						<input asp-for="Сведения_об_образовании.Дата_выдачи_диплома" class="form-control" />
+						<span asp-validation-for="Сведения_об_образовании.Дата_выдачи_диплома" class="text-danger"></span>
+					</div>					
+				</div>
+				
+			</div>
+			<div class="container text-center mt-3 mb-3">
+				<div class="form-group">
+					<button type="button" id="addUch" class="btn btn-primary">Добавить еще место учебы</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 card">
+		<div class="work-experience-container">
+		<div class="work-experience-card">
+
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Опыт_работы.Организация" class="control-label"></label>
+				<input asp-for="Опыт_работы.Организация" class="form-control" />
+				<span asp-validation-for="Опыт_работы.Организация" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Опыт_работы.Должность" class="control-label"></label>
+				<input asp-for="Опыт_работы.Должность" class="form-control" />
+				<span asp-validation-for="Опыт_работы.Должность" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Опыт_работы.Дата_начала_работы" class="control-label"></label>
+				<input asp-for="Опыт_работы.Дата_начала_работы" class="form-control" />
+				<span asp-validation-for="Опыт_работы.Дата_начала_работы" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Опыт_работы.Дата_окончания" class="control-label"></label>
+				<input asp-for="Опыт_работы.Дата_окончания" class="form-control" />
+				<span asp-validation-for="Опыт_работы.Дата_окончания" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Опыт_работы.Обязанности" class="control-label"></label>
+				<input asp-for="Опыт_работы.Обязанности" class="form-control" />
+				<span asp-validation-for="Опыт_работы.Обязанности" class="text-danger"></span>
+			</div>
+			
+				</div>
+			
+		</div>
+			<div class="container text-center mt-3 mb-3">
+				<div class="form-group">
+					<button type="button" id="addWorkExperience" class="btn btn-primary">Добавить еще место работы</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		// Обработчик кнопки "Добавить еще место работы"
+		$("#addWorkExperience").click(function () {
+			// Клонируем первую карточку опыта работы
+			var clonedCard = $(".work-experience-card:first").clone();
+
+			// Очищаем значения полей в склонированной карточке
+			clonedCard.find("input").val("");
+
+			// Добавляем склонированную карточку после последней карточки опыта работы
+			$(".work-experience-container").append(clonedCard);
+		});
+
+		// Обработчик кнопки "Добавить еще место учебы"
+		$("#addUch").click(function () {
+			// Клонируем первую карточку учебы
+			var clonedCard = $(".education-card:first").clone();
+
+			// Очищаем значения полей в склонированной карточке
+			clonedCard.find("input").val("");
+
+			// Добавляем склонированную карточку после последней карточки учебы
+			$(".education-container").append(clonedCard);
+		});
+	});
+</script>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

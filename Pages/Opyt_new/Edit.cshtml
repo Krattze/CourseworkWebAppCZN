@@ -1,0 +1,62 @@
+﻿@page
+@model WebAppCZN.Pages.Opyt_new.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Изменить</h1>
+
+<h4>Опыт_работы</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Опыт_работы.ID_опыта_работы" />
+            <div class="form-group">
+                <label asp-for="Опыт_работы.Организация" class="control-label"></label>
+                <input asp-for="Опыт_работы.Организация" class="form-control" />
+                <span asp-validation-for="Опыт_работы.Организация" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Опыт_работы.Должность" class="control-label"></label>
+                <input asp-for="Опыт_работы.Должность" class="form-control" />
+                <span asp-validation-for="Опыт_работы.Должность" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Опыт_работы.Дата_начала_работы" class="control-label"></label>
+                <input asp-for="Опыт_работы.Дата_начала_работы" class="form-control" />
+                <span asp-validation-for="Опыт_работы.Дата_начала_работы" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Опыт_работы.Дата_окончания" class="control-label"></label>
+                <input asp-for="Опыт_работы.Дата_окончания" class="form-control" />
+                <span asp-validation-for="Опыт_работы.Дата_окончания" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Опыт_работы.Обязанности" class="control-label"></label>
+                <input asp-for="Опыт_работы.Обязанности" class="form-control" />
+                <span asp-validation-for="Опыт_работы.Обязанности" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Опыт_работы.ID_резюме" class="control-label">Резюме</label>
+                <select asp-for="Опыт_работы.ID_резюме" class="form-control" asp-items="ViewBag.ID_резюме"></select>
+                <span asp-validation-for="Опыт_работы.ID_резюме" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Обратно к таблице</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

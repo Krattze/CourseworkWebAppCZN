@@ -1,0 +1,144 @@
+﻿@page
+@model WebAppCZN.Pages.Vak.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-2"><h1>Вакансии</h1></div>
+
+    <div class="col-md-4 pt-3">
+        <form method="get" class="d-inline">
+            <label for="searchTerm">Поиск:</label>
+            <input type="text" name="searchTerm" />
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+</div>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+ 
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3 || userRole == 1)
+    {
+         <p>
+            <a asp-page="Create">Добавить вакансию</a>
+        </p> 
+    }
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["Prof"]" asp-route-currentSortOrder="Prof">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Профессия)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["ZP"]" asp-route-currentSortOrder="ZP">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Зарплата)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["AD"]" asp-route-currentSortOrder="AD">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Адрес_трудоустройства)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["DYA"]" asp-route-currentSortOrder="DYA">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Должностные_обязанности)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["Obr"]" asp-route-currentSortOrder="Obr">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Образование)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["ST"]" asp-route-currentSortOrder="ST">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Стаж)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["GR"]" asp-route-currentSortOrder="GR">
+                @Html.DisplayNameFor(model => model.Вакансии[0].График_Работы)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["Tip"]" asp-route-currentSortOrder="Tip">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Тип_Занятости)
+                    </a>
+            </th>
+            <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@ViewData["Org"]" asp-route-currentSortOrder="Org">
+                @Html.DisplayNameFor(model => model.Вакансии[0].Организации)
+                    </a>
+            </th>
+             <th>
+              
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Вакансии) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Профессия)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Зарплата)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Адрес_трудоустройства)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Должностные_обязанности)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Образование.Образования)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Стаж)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.График_Работы.Форма_занятости)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Тип_Занятости.Тип_Занятости)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Организации.Наименование)
+            </td>
+            <td>
+                        @if (userRole == 1 || userRole == 3)
+                        {
+                            <p>
+                                <a asp-page="./Edit" asp-route-id="@item.ID_вакансии">Изменить</a> 
+                            </p>
+                        }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+else
+    {
+        await SignInManager.SignOutAsync(); // Sign out any potential residual user
+        Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+        return;
+    }

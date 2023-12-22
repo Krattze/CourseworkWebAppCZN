@@ -1,0 +1,103 @@
+﻿@page
+@model WebAppCZN.Pages.Predl.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Предложенные вакансии</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+    if (userRole == 3)
+    {
+        <h2>Доступ запрещен</h2>
+    }
+    else
+    {
+        if (userRole != 4)
+        {
+            <p>
+                <a asp-page="Create">Добавить</a>
+            </p>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Вакансии)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Личные_дела)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Дата_предложения)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Результат_предложения)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Дата_выдачи_направления)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Результат_собеседования)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Предложенные_вакансии[0].Резюме)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Предложенные_вакансии)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Вакансии.Профессия)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID_личного_дела)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_предложения)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Результат_предложения)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Дата_выдачи_направления)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Результат_собеседования)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Резюме.Желаемая_должность)
+                        </td>
+                        <td>
+                            @if (userRole != 4)
+                            {
+                            <a asp-page="./Edit" asp-route-id="@item.ID_предложения">Изменить</a>
+                            }
+                          
+                        </td>
+                    </tr>
+                }
+            </tbody>
+</table>
+    }
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

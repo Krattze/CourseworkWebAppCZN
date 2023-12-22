@@ -1,0 +1,94 @@
+﻿@page
+@model WebAppCZN.Pages.Rezume.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Желаемая_должность)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Профессия)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Сфера_деятельности)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Зарплата)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Дата_готовности_к_работе)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Адрес_места_жительства)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Флаг_удаления)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].График_Работы)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Заявление)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Резюме[0].Тип_Занятости)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Резюме) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Желаемая_должность)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Профессия)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Сфера_деятельности)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Зарплата)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_готовности_к_работе)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Адрес_места_жительства)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Флаг_удаления)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.ID_пользователя)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.График_Работы.ID_формы_занятости)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Заявление.ID_заявления)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Тип_Занятости.ID_тип_занятости)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID_резюме">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID_резюме">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID_резюме">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

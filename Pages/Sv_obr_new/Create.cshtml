@@ -1,0 +1,68 @@
+﻿@page
+@model WebAppCZN.Pages.Sv_obr_new.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Создать</h1>
+
+<h4>Сведения об образовании</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.Учебное_заведение" class="control-label"></label>
+                <input asp-for="Сведения_об_образовании.Учебное_заведение" class="form-control" />
+                <span asp-validation-for="Сведения_об_образовании.Учебное_заведение" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.Год_окончания" class="control-label"></label>
+                <input asp-for="Сведения_об_образовании.Год_окончания" class="form-control" />
+                <span asp-validation-for="Сведения_об_образовании.Год_окончания" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.Специальность" class="control-label"></label>
+                <input asp-for="Сведения_об_образовании.Специальность" class="form-control" />
+                <span asp-validation-for="Сведения_об_образовании.Специальность" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.Серия_диплома" class="control-label"></label>
+                <input asp-for="Сведения_об_образовании.Серия_диплома" class="form-control" />
+                <span asp-validation-for="Сведения_об_образовании.Серия_диплома" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.Номер_диплома" class="control-label"></label>
+                <input asp-for="Сведения_об_образовании.Номер_диплома" class="form-control" />
+                <span asp-validation-for="Сведения_об_образовании.Номер_диплома" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.Дата_выдачи_диплома" class="control-label"></label>
+                <input asp-for="Сведения_об_образовании.Дата_выдачи_диплома" class="form-control" />
+                <span asp-validation-for="Сведения_об_образовании.Дата_выдачи_диплома" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.ID_резюме" class="control-label">Резюме</label>
+                <select asp-for="Сведения_об_образовании.ID_резюме" class ="form-control" asp-items="ViewBag.ID_резюме"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Сведения_об_образовании.ID_образования" class="control-label">Образование</label>
+                <select asp-for="Сведения_об_образовании.ID_образования" class ="form-control" asp-items="ViewBag.ID_образования"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

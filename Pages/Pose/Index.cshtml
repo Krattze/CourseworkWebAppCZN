@@ -1,0 +1,92 @@
+﻿@page
+@model WebAppCZN.Pages.Pose.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+@using WebAppCZN.Data.BD
+@inject WebAppCZN.Data.ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Посещения</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+
+    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Пользователи.FirstOrDefaultAsync(m => m.ID_пользователя == userID);
+    int? userRole = user?.Роль;
+
+    if (userRole == 3)
+    {
+        <h2>Доступ запрещен</h2>
+    }
+    else
+    {
+        if (userRole != 4)
+        {
+            <p>
+                <a asp-page="Create">Добавить</a>
+            </p>
+        }
+        <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Посещения[0].Дата_записи)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Посещения[0].Время_записи)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Посещения[0].Дата_явки)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Посещения[0].Личные_данные)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Посещения[0].Результат_посещения)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Посещения)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Дата_записи)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Время_записи)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Дата_явки)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Личные_данные.ID_личных_данных)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Результат_посещения)
+                    </td>
+                    <td>
+                            @if (userRole != 4)
+                            {
+                        <a asp-page="./Edit" asp-route-id="@item.ID_посещения">Изменить</a> 
+                            }
+                       
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+}
+else
+{
+    await SignInManager.SignOutAsync(); // Sign out any potential residual user
+    Response.Redirect("/Identity/Account/Login"); // Redirect to the login page
+    return;
+}

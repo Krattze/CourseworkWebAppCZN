@@ -1,0 +1,92 @@
+﻿@page
+@model WebAppCZN.Pages.LD_new.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Личные_данные</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Фамилия)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Фамилия)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Имя)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Имя)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Отчество)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Отчество)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Дата_рождения)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Дата_рождения)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Серия_паспорта)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Серия_паспорта)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Номер_паспорта)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Номер_паспорта)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Дата_выдачи_паспорта)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Дата_выдачи_паспорта)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Кем_выдан_паспорт)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Кем_выдан_паспорт)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Адрес_регистрации)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Адрес_регистрации)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Телефон)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Телефон)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.Пол)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.Пол.ID_пола)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Личные_данные.ID_пользователя)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Личные_данные.ID_пользователя)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Личные_данные.ID_личных_данных">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
